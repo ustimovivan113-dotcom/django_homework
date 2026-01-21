@@ -3,34 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <title>{% if object %}Редактировать продукт{% else %}Создать продукт{% endif %}</title>
+    <!-- Bootstrap CSS для стилей (CDN, чтобы не устанавливать локально) -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body class="container mt-5">
-    <h2>{% if object %}Редактировать продукт{% else %}Создать продукт{% endif %}</h2>
-    <form method="post" class="form">
-        {% csrf_token %}
-        {{ form.non_field_errors }}
-        <div class="form-group mb-3">
+<body class="container mt-5">  <!-- Контейнер с отступом -->
+    <h2>{% if object %}Редактировать продукт{% else %}Создать продукт{% endif %}</h2>  <!-- Динамический заголовок -->
+    <form method="post">  <!-- Форма POST -->
+        {% csrf_token %}  <!-- Защита от CSRF -->
+        {{ form.non_field_errors }}  <!-- Ошибки не для полей -->
+        <div class="mb-3">  <!-- Группа для name -->
             <label for="{{ form.name.id_for_label }}" class="form-label">Название</label>
-            {{ form.name }}
-            {{ form.name.errors }}
+            {{ form.name }}  <!-- Инпут name (с attrs из forms.py) -->
+            {{ form.name.errors }}  <!-- Ошибки -->
         </div>
-        <div class="form-group mb-3">
+        <div class="mb-3">  <!-- Группа для description -->
             <label for="{{ form.description.id_for_label }}" class="form-label">Описание</label>
-            {{ form.description }}
+            {{ form.description }}  <!-- Textarea -->
             {{ form.description.errors }}
         </div>
-        <div class="form-group mb-3">
+        <div class="mb-3">  <!-- Группа для price -->
             <label for="{{ form.price.id_for_label }}" class="form-label">Цена</label>
-            {{ form.price }}
+            {{ form.price }}  <!-- Инпут price -->
             {{ form.price.errors }}
         </div>
-        <div class="form-check mb-3">
-            {{ form.is_active }}
+        <div class="form-check mb-3">  <!-- Группа для checkbox is_active -->
+            {{ form.is_active }}  <!-- Checkbox -->
             <label class="form-check-label" for="{{ form.is_active.id_for_label }}">Активен</label>
             {{ form.is_active.errors }}
         </div>
-        <button type="submit" class="btn btn-primary">Сохранить</button>
+        <button type="submit" class="btn btn-primary">Сохранить</button>  <!-- Кнопка -->
     </form>
 </body>
 </html>
