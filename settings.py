@@ -62,8 +62,12 @@ WSGI_APPLICATION = 'project.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'shop_db',
+        'USER': 'shop_user',
+        'PASSWORD': 'shop123',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
 
@@ -110,3 +114,7 @@ AUTH_USER_MODEL = 'users.User'  # Кастом пользователь
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  # Console для теста email
 EMAIL_HOST_USER = 'no-reply@shop.com'  # Фиктивный отправитель
+
+LOGIN_REDIRECT_URL = '/'          # после логина — на главную (список продуктов)
+LOGOUT_REDIRECT_URL = '/'         # после выхода — тоже на главную
+LOGIN_URL = '/users/login/'       # страница логина (если кто-то не авторизован)
