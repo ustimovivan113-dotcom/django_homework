@@ -63,9 +63,9 @@ WSGI_APPLICATION = 'project.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'shop_db',
-        'USER': 'shop_user',
-        'PASSWORD': 'shop123',
+        'NAME': 'django_homework_db',      # имя твоей базы
+        'USER': 'postgres',                # твой пользователь PostgreSQL
+        'PASSWORD': 'твой_пароль',         # пароль от PostgreSQL
         'HOST': 'localhost',
         'PORT': '5432',
     }

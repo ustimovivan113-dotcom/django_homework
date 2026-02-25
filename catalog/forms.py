@@ -14,8 +14,8 @@ class ProductForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['name'].widget.attrs.update({'class': 'form-control', 'placeholder': 'Название продукта'})
-        self.fields['description'].widget.attrs.update({'class': 'form-control', 'placeholder': 'Описание', 'rows': 5})
+        self.fields['name'].widget.attrs.update({'class': 'form-control', 'placeholder': 'Название'})
+        self.fields['description'].widget.attrs.update({'class': 'form-control', 'rows': 5, 'placeholder': 'Описание'})
         self.fields['price'].widget.attrs.update({'class': 'form-control', 'placeholder': 'Цена'})
         self.fields['is_active'].widget.attrs.update({'class': 'form-check-input'})
 
