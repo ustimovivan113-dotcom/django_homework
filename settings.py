@@ -7,7 +7,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-@!^%your_secret_key_here'  # Замени на свой, если нужно
+SECRET_KEY = 'django-insecure-@!^%your_secret_key_here'  # Замени на свой
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -23,8 +23,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'users',  # Новое приложение для пользователей
-    'catalog',  # Твоё приложение для продуктов
+    'catalog',  # Только catalog
 ]
 
 MIDDLEWARE = [
@@ -42,7 +41,7 @@ ROOT_URLCONF = 'project.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [],  # Можно добавить BASE_DIR / 'templates' если нужны общие шаблоны
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -58,22 +57,18 @@ TEMPLATES = [
 WSGI_APPLICATION = 'project.wsgi.application'
 
 # Database
-# https://docs.djangoproject.com/en/5.0/ref/settings/#databases
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'django_homework_db',      # имя твоей базы
-        'USER': 'postgres',                # твой пользователь PostgreSQL
-        'PASSWORD': 'твой_пароль',         # пароль от PostgreSQL
+        'NAME': 'django_homework_db',
+        'USER': 'postgres',
+        'PASSWORD': 'твой_пароль',  # Замени на реальный
         'HOST': 'localhost',
         'PORT': '5432',
     }
 }
 
 # Password validation
-# https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
-
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -90,8 +85,6 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 # Internationalization
-# https://docs.djangoproject.com/en/5.0/topics/i18n/
-
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
@@ -100,21 +93,13 @@ USE_I18N = True
 
 USE_TZ = True
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.0/howto/static-files/
-
+# Static files
 STATIC_URL = 'static/'
 
 # Default primary key field type
-# https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
-
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-AUTH_USER_MODEL = 'users.User'  # Кастом пользователь
-
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  # Console для теста email
-EMAIL_HOST_USER = 'no-reply@shop.com'  # Фиктивный отправитель
-
-LOGIN_REDIRECT_URL = '/'          # после логина — на главную (список продуктов)
-LOGOUT_REDIRECT_URL = '/'         # после выхода — тоже на главную
-LOGIN_URL = '/users/login/'       # страница логина (если кто-то не авторизован)
+# Auth settings (стандартные Django)
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
+LOGIN_URL = '/accounts/login/'  # Стандартный путь Django для логина (без 'users')
