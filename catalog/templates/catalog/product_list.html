@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Продукты</h1>
+<ul>
+    {% for product in products %}
+        <li>
+            {{ product.name }} - {{ product.price }}
+            {% if product.is_published %} (Опубликовано) {% else %} (Не опубликовано) {% endif %}
+            {% if user == product.owner %}
+                <a href="{% url 'catalog:product_update' product.pk %}">Редактировать</a>
+            {% endif %}
+            {% if user == product.owner or perms.catalog.delete_product %}
+                <a href="{% url 'catalog:product_delete' product.pk %}">Удалить</a>
+            {% endif %}
+            {% if perms.catalog.can_unpublish_product and product.is_published %}
+                <a href="{% url 'catalog:product_unpublish' product.pk %}">Отменить публикацию</a>
+            {% endif %}
+        </li>
+    {% endfor %}
+</ul>
+<a href="{% url 'catalog:product_create' %}">Добавить продукт</a>
+{% endblock %}
