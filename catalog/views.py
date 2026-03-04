@@ -5,14 +5,16 @@ from django.views.decorators.cache import cache_page
 from django.urls import reverse_lazy
 from .models import Product, Category
 from .forms import ProductForm
-from .services import get_products_by_category
+from .services import get_products_by_category, get_all_products  # Добавили get_all_products
 
 # Список всех продуктов (эндпоинт для просмотра всех продуктов)
 class ProductListView(ListView):
     model = Product
     template_name = 'catalog/product_list.html'
     context_object_name = 'products'
-    queryset = Product.objects.filter(is_active=True).order_by('name')
+
+    def get_queryset(self):
+        return get_all_products()  # Используем сервис с низкоуровневым кэшем
 
 # Детальная страница одного продукта (с кэшированием страницы)
 @method_decorator(cache_page(60 * 15), name='dispatch')  # 15 минут = 900 секунд
