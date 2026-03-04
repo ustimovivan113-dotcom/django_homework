@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block title %}Все товары{% endblock %}
+
+{% block content %}
+  <h1>Каталог товаров</h1>
+
+  <a href="{% url 'catalog:product_create' %}">Добавить товар</a>
+
+  {% if products %}
+    <ul>
+      {% for product in products %}
+        <li>
+          <a href="{% url 'catalog:product_detail' product.pk %}">{{ product.name }} — {{ product.price }} ₽</a>
+          {% if product.owner == user or perms.catalog.can_unpublish_product %}
+            <a href="{% url 'catalog:product_update' product.pk %}">Редактировать</a>
+            <a href="{% url 'catalog:product_delete' product.pk %}">Удалить</a>
+            {% if product.is_active %}
+              <a href="{% url 'catalog:product_unpublish' product.pk %}">Снять с публикации</a>
+            {% endif %}
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>Товаров нет.</p>
+  {% endif %}
+
+  <h2>Категории</h2>
+  <!-- Пример ссылок на категории, если есть -->
+  {% for category in categories %}
+    <a href="{% url 'catalog:products_by_category' category.id %}">{{ category.name }}</a>
+  {% endfor %}
+{% endblock %}
